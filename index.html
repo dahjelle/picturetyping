@@ -19,10 +19,19 @@
                 width: auto;
                 height: auto;
             }
+            #letter {
+                position: absolute;
+                font-size: 400px;
+                font-weight: bold;
+                bottom: 5px;
+                left: 5px;
+                text-align: left;
+            }
         </style>
     </head>
     <body>
         <img id="image" src="/images/unknown.jpg" />
+        <div id="letter"></div>
     </body>
     <script>
         document.body.addEventListener( "keydown", function( e ) {
@@ -30,6 +39,7 @@
             if ( images[ letter ] ) {
                 document.getElementById( "image" ).src = images[ letter ].sample();
             }
+            document.getElementById( "letter" ).innerHTML = letter + letter.toLowerCase();
         }, false );
     </script>
 </html>
