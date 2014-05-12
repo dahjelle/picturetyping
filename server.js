@@ -78,7 +78,7 @@ var filterMatches = function( matches, image_dir ) {
 var matchesToMap = function( matches, image_dir ) {
     var map = {};
     matches.each( function( match ) {
-        var key = path.dirname( match );
+        var key = path.dirname( match ).toUpperCase();
         if ( !Object.isArray( map[ key ] ) ) {
             map[ key ] = [];
         }
