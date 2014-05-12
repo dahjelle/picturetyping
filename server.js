@@ -19,9 +19,9 @@ http.createServer(function(request, response) {
     console.log( uri, filename );
     if ( uri === "/images" || uri === "/images/" ) {
         response.writeHead( 200, {
-            "Content-Type": "application/json"
+            "Content-Type": "application/javascript"
         } );
-        response.write( JSON.stringify( makeMatchList( "images" ) ) );
+        response.write( "var images = " + JSON.stringify( makeMatchList( "images" ) ) );
         response.end();
     } else {
         fs.exists(filename, function(exists) {
