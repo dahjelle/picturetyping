@@ -36,8 +36,11 @@
     <script>
         document.body.addEventListener( "keydown", function( e ) {
             var letter = String.fromCharCode( e.keyCode );
+            var img = document.getElementById( "image" );
             if ( images[ letter ] ) {
-                document.getElementById( "image" ).src = images[ letter ].sample();
+                img.src = images[ letter ].sample();
+            } else {
+                img.src = "/images/unknown.jpg";
             }
             document.getElementById( "letter" ).innerHTML = letter + letter.toLowerCase();
         }, false );
