@@ -82,7 +82,7 @@ var matchesToMap = function( matches, image_dir ) {
         if ( !Object.isArray( map[ key ] ) ) {
             map[ key ] = [];
         }
-	map[ key ].push( image_dir + "/" + match );
+        map[ key ].push( image_dir + "/" + match );
     } );
     return map;
 };
