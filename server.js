@@ -9,6 +9,7 @@ var path = require( "path" );
 var glob = require( "glob" );
 var http = require( "http" );
 var url = require( "url" );
+var gm = require( "gm" );
 var port = process.argv[ 2 ] || 8888;
 require( "sugar" );
 Object.extend();
@@ -62,6 +63,13 @@ var makeMatchList = function( image_dir ) {
         cwd: image_dir
     } );
     matches = filterMatches( matches, image_dir );
+    matches.each( function( match ) {
+        gm( match ).size( function( err, size ) {
+            if ( size.width > 1024 || size.height > 768 ) {
+                gm( match ).resize( 1024, 768 ).write( match );
+            }
+        } );
+    } );
     var map = matchesToMap( matches, image_dir );
     return map;
 };
