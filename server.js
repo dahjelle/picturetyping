@@ -28,7 +28,7 @@ http.createServer(function(request, response) {
         response.write( "var images = " + JSON.stringify( makeMatchList( "images" ) ) );
         response.end();
     } else {
-        fs.exists(filename, function(exists) {
+        path.exists(filename, function(exists) {
             // should probably also return 404 for server.js
             if (!exists) {
                 response.writeHead(404, {
