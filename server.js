@@ -16,7 +16,6 @@ var MAX_SIZE = {
     height: 768
 };
 require( "sugar" );
-Object.extend();
 
 http.createServer(function(request, response) {
     var uri = url.parse(request.url).pathname,
