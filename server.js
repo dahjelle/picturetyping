@@ -9,9 +9,13 @@ var path = require( "path" );
 var glob = require( "glob" );
 var http = require( "http" );
 var url = require( "url" );
+var gm = require( "gm" );
 var port = process.argv[ 2 ] || 8888;
+var MAX_SIZE = {
+    width: 1024,
+    height: 768
+};
 require( "sugar" );
-Object.extend();
 
 http.createServer(function(request, response) {
     var uri = url.parse(request.url).pathname,
@@ -24,7 +28,7 @@ http.createServer(function(request, response) {
         response.write( "var images = " + JSON.stringify( makeMatchList( "images" ) ) );
         response.end();
     } else {
-        fs.exists(filename, function(exists) {
+        path.exists(filename, function(exists) {
             // should probably also return 404 for server.js
             if (!exists) {
                 response.writeHead(404, {
@@ -62,6 +66,15 @@ var makeMatchList = function( image_dir ) {
         cwd: image_dir
     } );
     matches = filterMatches( matches, image_dir );
+    matches.each( function( match ) {
+        var file = image_dir + "/" + match;
+        gm( file ).size( function( err, size ) {
+            if ( !size || size.width > MAX_SIZE.width || size.height > MAX_SIZE.height ) {
+                console.log( "resizing", file );
+                gm( file ).resize( MAX_SIZE.width, MAX_SIZE.height ).write( file, function() {} );
+            }
+        } );
+    } );
     var map = matchesToMap( matches, image_dir );
     return map;
 };
@@ -82,7 +95,7 @@ var matchesToMap = function( matches, image_dir ) {
         if ( !Object.isArray( map[ key ] ) ) {
             map[ key ] = [];
         }
-	map[ key ].push( image_dir + "/" + match );
+        map[ key ].push( image_dir + "/" + match );
     } );
     return map;
 };

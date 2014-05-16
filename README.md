@@ -7,6 +7,5 @@ Hit a key, get a picture. Created for kids to enjoy typing, especially for worki
 
 TODO
 ====
-[ ] explain image directory structure
-[ ] sample images?
-[ ] license (BSD?)
+- [ ] explain image directory structure
+- [ ] sample images?
